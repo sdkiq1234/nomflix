@@ -5,7 +5,7 @@ import TVPresenter from "./TVPresenter";
 class TVContainer extends React.Component {
   state = {
     topRated: null,
-    polular: null,
+    popular: null,
     airingToday: null,
     error: null,
     loading: true,
@@ -16,14 +16,14 @@ class TVContainer extends React.Component {
         data: { results: topRated },
       } = await tvApi.topRated();
       const {
-        data: { results: polular },
-      } = await tvApi.polular();
+        data: { results: popular },
+      } = await tvApi.popular();
       const {
         data: { results: airingToday },
       } = await tvApi.airingToday();
       this.setState({
         topRated,
-        polular,
+        popular,
         airingToday,
       });
     } catch {
@@ -35,12 +35,12 @@ class TVContainer extends React.Component {
     }
   }
   render() {
-    const { topRated, polular, airingToday, error, loading } = this.state;
+    const { topRated, popular, airingToday, error, loading } = this.state;
     console.log(this.state);
     return (
       <TVPresenter
         topRated={topRated}
-        polular={polular}
+        popular={popular}
         airingToday={airingToday}
         error={error}
         loading={loading}
