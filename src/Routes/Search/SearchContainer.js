@@ -4,18 +4,28 @@ import SearchPresenter from "./SearchPresenter";
 
 class SearchContainer extends React.Component {
   state = {
-    MovieResults: null,
-    TVResults: null,
+    movieResults: null,
+    tvResults: null,
     SearchTerm: "",
     error: null,
     loading: false,
   };
 
-  handleSubmit = () => {
+  handleSubmit = (event) => {
+    event.preventDefault();
     const { searchTerm } = this.state;
     if (searchTerm !== "") {
       this.searchByTerm();
     }
+  };
+
+  updateTerm = (event) => {
+    const {
+      target: { value },
+    } = event;
+    this.setState({
+      searchTerm: value,
+    });
   };
 
   searchByTerm = async () => {
@@ -36,15 +46,16 @@ class SearchContainer extends React.Component {
     }
   };
   render() {
-    const { MovieResults, TVResults, SearchTerm, error, loading } = this.state;
+    const { movieResults, tvResults, searchTerm, error, loading } = this.state;
     return (
       <SearchPresenter
-        MovieResults={MovieResults}
-        TVResults={TVResults}
-        SearchTerm={SearchTerm}
+        movieResults={movieResults}
+        tvResults={tvResults}
+        searchTerm={searchTerm}
         error={error}
         loading={loading}
         handleSubmit={this.handleSubmit}
+        updateTerm={this.updateTerm}
       />
     );
   }
